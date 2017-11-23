@@ -1,6 +1,9 @@
-function vehicles = InitializeVehicles(numCars)
+function vehicles = InitializeVehicles(numCars,names)
 %Code for initializing vechicle structure
-%Number cars in simulation should be given as input
+%Number cars in simulation should be given as 1st input
+
+%List with names of suitable hubs to use as possible 
+%start locations as 2nd input
 
 %Vehicles are identified by their index
 %1st field represents current node
@@ -9,7 +12,6 @@ function vehicles = InitializeVehicles(numCars)
 %4th field represents if vehicle is busy
 
 %Initializing random starting nodes of type 1
-names = {'Backaplan' 'Brunnsparken' 'Järntorget' 'Gamlestadstorget' 'Korsvägen'}';
 X = randi(length(names),1,numCars);
 
 %Initializing fields of vehicle structure
