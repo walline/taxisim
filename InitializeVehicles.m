@@ -16,8 +16,9 @@ X = randi(length(names),1,numCars);
 
 %Initializing fields of vehicle structure
 field1 = 'CurrentNode';  value1 = names(X);
-field2 = 'CurrentDest';  value2 = '';
-field3 = 'FinalDest';  value3 = '';
+%field2 = 'CurrentDest';  value2 = names(X);
+field2 = 'Path';  value2 = {{}};
+field3 = 'FinalDest';  value3 = names(X);
 field4 = 'Busy';  value4 = false;
 
 vehicles = struct(field1,value1,field2,value2,field3,value3,field4,value4)
