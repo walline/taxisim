@@ -19,7 +19,7 @@ scalingFactor = totalNumberOfTrips/(functionCalls*meanProbability);
 [~,maxProbability] = fminbnd(@(x) -scalingFactor*fitresult(x),startTime,endTime);
 maxProbability = -maxProbability;
 if maxProbability > 1
-    disp('Probability greater than one')
+    disp('Probability greater than one. Needs more function calls or lower total number of trips.')
     tripProbability = NaN;
     return
 end
