@@ -13,7 +13,9 @@ classdef TripQueue
         end
         
         function waitingTime = PopTrip(id,pickUpTime)
-            pass
+            index = find(tripMatrix(:,3)==id)
+            waitingTime = pickUpTime - callTime;
+            tripMatrix[index,:] = [];
         end
         
         
