@@ -3,9 +3,10 @@ function [origin,destination] = GenerateTrip(currentTime,graph)
 r = rand;
 
 if r < GetTripProbability(currentTime)
-    [origin,destination] = GetTripType(time,graph);
+    [origin,destination] = GetTripType(currentTime,graph);
 else
-    [origin, destination] = [0,0];
+    origin = 0;
+    destination = 0;
 end
 
     

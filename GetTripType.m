@@ -7,7 +7,7 @@ numberOfNodes = height(graph.Nodes);
 origin = randi(numberOfNodes);
 destination = randi(numberOfNodes);
 
-while(randomOrigin==randomDestination)
+while(origin==destination)
     destination = randi(numberOfNodes);
 end
  
