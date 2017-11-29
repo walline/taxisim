@@ -5,8 +5,13 @@ numCars = 200;
 numHubs = 5;
 endTime = 1440;
 
+selection_para = 1;
+%Selection parameter [0, 1] to decide how to assign trips;
+%0 ignores the distance, 1 ignores the queue
+
 %Variables
 ID_trip = 1; %Id for each trip
+timesArray =  []; %row 1 pairing time row 2 trip length
 
 
 %Initializing TripQueue
@@ -33,7 +38,7 @@ for t=1:endTime
     end
     
     %Pair cars with trip
-    MatchTrips(vec,tripQueue)
+    MatchTrips(vec,tripQueue,G,t,timesArray, selection_para)
     %Uppdate cars
     UppdateCars(vec)
 end
