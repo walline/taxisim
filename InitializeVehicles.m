@@ -20,7 +20,8 @@ field1 = 'CurrentNode';  value1 = positions(X);
 field2 = 'Path';  value2 = [];
 field3 = 'FinalDest';  value3 = positions(X);
 field4 = 'Busy';  value4 = false;
+field5 = 'PairingTime'; value5 = [];
 
-vehicles = struct(field1,value1,field2,value2,field3,value3,field4,value4)
+vehicles = struct(field1,value1,field2,value2,field3,value3,field4,value4,field5,value5)
 
 end
