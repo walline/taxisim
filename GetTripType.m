@@ -1,14 +1,18 @@
-function [origin,destination] = GetTripType(time)
+function [origin,destination] = GetTripType(time,graph)
 
-if time < 500
-    origin = randomHomeNode();
-    destination = randomWorkNode();
-elseif time < 1000
-    origin = randomWorkNode();
-    destination = randomHomeNode();
-else
-    origin = randomHomeNode();
-    destination = randomOtherNode();
+% just random nodes so far
+% need to implement this with time depending probabilities
+
+numberOfNodes = height(graph.Nodes);
+origin = randi(numberOfNodes);
+destination = randi(numberOfNodes);
+
+while(randomOrigin==randomDestination)
+    destination = randi(numberOfNodes);
+end
+ 
     
+    
+
 
 
