@@ -4,7 +4,7 @@ function cars = IdleCar(cars, graph, threshold)
 nCars = length(cars);
 
 for i = 1:nCars
-    if(~cars(i).Busy && isempty(cars(i).Path))
+    if(~cars(i).Busy && isempty(cars(i).FinalDest))
         node = cars(i).CurrentNode;
         currentDegree = degree(graph, node);
         if(currentDegree < threshold)
@@ -13,7 +13,7 @@ for i = 1:nCars
             maxDegree = currentDegree;
             for j = 1:currentDegree
                 if(degree(graph, IDs(j)) > maxDegree)
-                   cars(i).Path = IDs(j);
+                   cars(i).FinalDest = IDs(j);
                    maxDegree = degree(graph, IDs(j));
                 end
             end
