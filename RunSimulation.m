@@ -1,11 +1,11 @@
 %Initialization
 clc, clf, clear
 %Parameters
-numCars = 200; 
+numCars = 5; 
 numHubs = 5;
-endTime = 100; %1440 for 24 hours
+endTime = 1440; %1440 for 24 hours
 delayTime = 15;
-startTime = 0
+startTime = 0;
 
 totalNumberOfTrips = 10;
 functionCalls = 100; % change this depending on nr of loop iterations
@@ -32,6 +32,9 @@ timesArray =  []; %row 1 pairing time row 2 trip length
 %Initializing TripQueue
 tripQueue = TripQueue(delayTime);
 
+%Creating graph
+G = InitializeGraph();
+
 %Retrieving positions of the most connected nodes 
 D = degree(G);
 [B,positions] = maxk(D,numHubs);
@@ -43,9 +46,10 @@ vec = InitializeVehicles(numCars,positions);
 %Main loop
 
 for t=1:endTime
- 
+ DisplayGraph(G, vec, tripQueue)
+ pause(0.0001)
     %Update generate and add trip
-    [origin,destination] = probGen.GenerateTrip(t);
+      [origin,destination] = probGen.GenerateTrip(t);
 
     if ((origin ~=0) && (destination ~=0) )
         tripQueue.AddTrip(origin,destination,t,ID_trip);
@@ -54,7 +58,8 @@ for t=1:endTime
 
     %Pair cars with trip
     [vec, tripQueue, timesArray] = MatchTrips(vec,tripQueue,G,t,timesArray, selection_para);
+
     %Uppdate cars
-%     vec = UpdateCars(G,vec,t,timesArray)
+     [vec,  timesArray] = UpdateCars(G,vec,t,timesArray);
 end
 
