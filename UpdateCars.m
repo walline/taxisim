@@ -29,9 +29,9 @@ for i=1:numberOfCars
                 end
             end  
         end
-    else % Car on its way to hub
+    elseif car.CurrentNode ~= car.FinalDest % Car on its way to hub
         weight = graph.Edges.Weight(findedge(graph, car.CurrentNode, car.FinalDest));
-        elapsedTime = currentTime - car.LastNodeTime; % Car to hub has pairing time?
+        elapsedTime = currentTime - car.LastNodeTime; 
         if (weight - elapsedTime) == 0
             car.CurrentNode = car.FinalDest;
             car.FinalDest = [];
