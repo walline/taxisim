@@ -20,12 +20,12 @@ for i=1:numberOfCars
                     car.FinalDest = [];
                     car.Path = [];
                     car.LastNodeTime = [];
+                    car.Busy = 0;
                     totalTripTime = currentTime - car.PairingTime;
                     timesArray(2, car.TimesArrayPosition) = totalTripTime;                 
                 else % Car reached passenger, find path to final dest
                     [path, ~] = shortestpath(graph, car.CurrentNode, car.FinalDest);
                     car.Path = path;
-                    car.LastNodeTime = currentTime;
                 end
             end  
         end
@@ -35,8 +35,10 @@ for i=1:numberOfCars
         if (weight - elapsedTime) == 0
             car.CurrentNode = car.FinalDest;
             car.FinalDest = [];
+            car.LastNodeTime = [];
         end
     end
+    cars(i) = car;
 end
 updatedCars = cars;
 end
