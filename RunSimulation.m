@@ -4,6 +4,7 @@ clc, clf, clear
 numCars = 200; 
 numHubs = 5;
 endTime = 1440;
+delayTime = 15;
 
 selection_para = 1;
 %Selection parameter [0, 1] to decide how to assign trips;
@@ -15,7 +16,7 @@ timesArray =  []; %row 1 pairing time row 2 trip length
 
 
 %Initializing TripQueue
-tripQueue = TripQueue;
+tripQueue = TripQueue(delayTime);
 
 %Creating graph
 G = InitializeGraph();
@@ -33,7 +34,7 @@ for t=1:endTime
     %Update generate and add trip
     [origin,destination] = GenerateTrip(t);
     if ((origin ~=0) && (destination ~=0) )
-        AddTrip(tripQueue,origin,destination,t,ID_trip); %might need ID here aswell
+        tripQueue.AddTrip(tripQueue,origin,destination,t,ID_trip); %might need ID here aswell
         ID_trip = ID_trip + 1;
     end
     
