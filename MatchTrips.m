@@ -13,7 +13,8 @@ if(queueSize == 0)
 end
 
 tripOrigin = trips.tripMatrix(1,1);
-trip =  trips.tripMatrix(1,4);
+id =  trips.tripMatrix(1,4);
+trip = 1;
 [firstTripDistance, car0] = FindClosestCar(cars, tripOrigin, graph);
 
 if(car0 == 0)
@@ -26,20 +27,24 @@ for i = 2:queueSize
     tripOrigin = trips.tripMatrix(i,1);
     [tripDistance, car] = FindClosestCar(cars, tripOrigin, graph);
     if tripDistance < bestDistance
+        id = trips.tripMatrix(i,4);
         trip = i;
         car0 = car;
         bestDistance = tripDistance;
     end
 end
 
-waitingTime = trips.PopTrip(id, currentTime);
-timesArray = [timesArray, [waitingTime;0]];
-timesArrayPosition = size(timesArray, 2);
 path = shortestpath(graph, cars(car0).CurrentNode, trips.tripMatrix(trip,1));
+
+
 
 cars(car0).Path = path;
 cars(car0).FinalDest = trips.tripMatrix(trip,2);
 cars(car0).Busy = 1;
-cars(car0).TimesArrayPosition = timesArrayPosition;
 
+
+waitingTime = trips.PopTrip(id, currentTime);
+timesArray = [timesArray, [waitingTime;0]];
+timesArrayPosition = size(timesArray, 2);
+cars(car0).TimesArrayPosition = timesArrayPosition;
 end
