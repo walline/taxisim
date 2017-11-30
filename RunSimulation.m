@@ -5,6 +5,20 @@ numCars = 200;
 numHubs = 5;
 endTime = 100; %1440 for 24 hours
 delayTime = 15;
+startTime = 0
+
+totalNumberOfTrips = 10;
+functionCalls = 100; % change this depending on nr of loop iterations
+
+load('fitdata.mat') % loads data for curve fits
+
+
+%Creating graph
+G = InitializeGraph();
+
+probGen = ProbabilityGenerator();
+probGen.SetTimeProbabilities(x,y,totalNumberOfTrips,functionCalls,startTime,endTime);
+probGen.SetTypeProbabilities(G);
 
 selection_para = 0;
 %Selection parameter [0, 1] to decide how to assign trips;
@@ -17,9 +31,6 @@ timesArray =  []; %row 1 pairing time row 2 trip length
 
 %Initializing TripQueue
 tripQueue = TripQueue(delayTime);
-
-%Creating graph
-G = InitializeGraph();
 
 %Retrieving positions of the most connected nodes 
 D = degree(G);
@@ -34,7 +45,7 @@ vec = InitializeVehicles(numCars,positions);
 for t=1:endTime
  
     %Update generate and add trip
-    [origin,destination] = GenerateTrip(t,G);
+    [origin,destination] = probGen.GenerateTrip(t);
 
     if ((origin ~=0) && (destination ~=0) )
         tripQueue.AddTrip(origin,destination,t,ID_trip);
