@@ -1,4 +1,9 @@
 classdef TripQueue < handle
+% class that stores trips
+% tripMatrix is a matrix with columns:
+% origin, destination, callTime, id
+% delayTime is the time before waiting time starts counting
+    
     properties
         tripMatrix
         delayTime
