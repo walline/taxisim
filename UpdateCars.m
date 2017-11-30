@@ -5,6 +5,10 @@ numberOfCars = length(cars);
 for i=1:numberOfCars
     car = cars(i);
     if car.Busy
+        if length(car.Path) == 1 % If driver starts at pickup node
+            [path, ~] = shortestpath(graph, car.CurrentNode, car.FinalDest);
+            car.Path = path;
+        end
         weight = graph.Edges.Weight(findedge(graph, car.CurrentNode, car.Path(find(car.CurrentNode)+1)));
         if isempty(car.LastNodeTime)
             elapsedTime = currentTime - car.PairingTime;
