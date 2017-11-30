@@ -13,7 +13,7 @@ for i=1:numberOfCars
         end
         if (weight - elapsedTime) == 0
             car.CurrentNode = car.Path(2);
-            car.Path = car.Path[2:end];
+            car.Path = car.Path(2:end);
             car.LastNodeTime = currentTime;
             if length(car.Path) == 1 % Car reached end of path
                 if car.CurrentNode == car.FinalDest % Trip complete
