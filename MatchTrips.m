@@ -45,7 +45,7 @@ cars(car0).PairingTime = currentTime;
 
 
 waitingTime = trips.PopTrip(id, currentTime);
-timesArray = [timesArray, [waitingTime;0]];
+timesArray = [timesArray, [waitingTime;0;0]];
 timesArrayPosition = size(timesArray, 2);
 cars(car0).TimesArrayPosition = timesArrayPosition;
 end
