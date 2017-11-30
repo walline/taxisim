@@ -1,4 +1,4 @@
-function updatedCars = UpdateCars( graph, cars, currentTime, timesArray )
+function [updatedCars, timesArray] = UpdateCars( graph, cars, currentTime, timesArray )
 %UPDATECARS
 
 numberOfCars = length(cars);
@@ -8,6 +8,7 @@ for i=1:numberOfCars
         if length(car.Path) == 1 % If driver starts at pickup node
             [path, ~] = shortestpath(graph, car.CurrentNode, car.FinalDest);
             car.Path = path;
+            timesArray(2, car.TimesArrayPosition) = 0;
         end
         weight = graph.Edges.Weight(findedge(graph, car.CurrentNode, car.Path(find(car.CurrentNode)+1)));
         if isempty(car.LastNodeTime)
@@ -25,11 +26,13 @@ for i=1:numberOfCars
                     car.Path = [];
                     car.LastNodeTime = [];
                     car.Busy = 0;
-                    totalTripTime = currentTime - car.PairingTime;
-                    timesArray(2, car.TimesArrayPosition) = totalTripTime;                 
+                    tripTime = currentTime - timesArray(2, car.TimesArrayPosition) - car.PairingTime;
+                    timesArray(3, car.TimesArrayPosition) = tripTime;
                 else % Car reached passenger, find path to final dest
                     [path, ~] = shortestpath(graph, car.CurrentNode, car.FinalDest);
                     car.Path = path;
+                    pickupTime = currentTime - car.PairingTime;
+                    timesArray(2, car.TimesArrayPosition) = pickupTime;
                 end
             end  
         end
