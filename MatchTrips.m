@@ -41,6 +41,7 @@ path = shortestpath(graph, cars(car0).CurrentNode, trips.tripMatrix(trip,1));
 cars(car0).Path = path;
 cars(car0).FinalDest = trips.tripMatrix(trip,2);
 cars(car0).Busy = 1;
+cars(car0).PairingTime = currentTime; 
 
 
 waitingTime = trips.PopTrip(id, currentTime);
