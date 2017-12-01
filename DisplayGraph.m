@@ -8,7 +8,7 @@ calls = [];
 busy = [];
 idle = [];
 idleMoving = [];
-h = plot(graph, 'NodeLabel', graph.Nodes.Name,'EdgeLabel', graph.Edges.Weight,'Layout','layered');
+h = plot(graph, 'NodeLabel', graph.Nodes.Name,'EdgeLabel', graph.Edges.Weight);
 
 numberOfVehicles = length(cars);
 numberOfTrips = size(trips.tripMatrix, 1);
@@ -45,4 +45,3 @@ highlight(h,idleMoving(:,1),'EdgeColor','c', 'LineWidth', 3); %idle moving
 end
 
 end
-
