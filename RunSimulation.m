@@ -40,7 +40,13 @@ G = InitializeGraph();
 
 %Retrieving positions of the most connected nodes
 D = degree(G);
-[B,positions] = maxk(D,numHubs);
+% [B,positions] = maxk(D,numHubs);
+positions = zeros(1, numHubs);
+for i=1:numHubs
+    [Y,I] = max(D);
+    D(I) = 0;
+    positions(i) = I;
+end
 positions = num2cell(positions);
 
 %Initializing vehicles
