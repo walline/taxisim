@@ -22,8 +22,8 @@ field3 = 'FinalDest';  value3 = positions(X);
 field4 = 'Busy';  value4 = false;
 field5 = 'PairingTime'; value5 = [];
 field6 = 'TimesArrayPosition'; value6 = [];
+field7 = 'LastNodeTime'; value7 = [];
 
-
-vehicles = struct(field1,value1,field2,value2,field3,value3,field4,value4,field5,value5,field6,value6);
+vehicles = struct(field1,value1,field2,value2,field3,value3,field4,value4,field5,value5,field6,value6,field7,value7);
 
 end
