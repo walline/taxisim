@@ -89,7 +89,7 @@ for t=1:endTime
     scatter(t, counter_busy(t),'s')
      hold on
     
-    title('#BusyCars')
+    title('Number of busy cars')
     
     
 end
