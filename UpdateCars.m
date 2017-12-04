@@ -26,6 +26,7 @@ for i=1:numberOfCars
                     car.Path = [];
                     car.LastNodeTime = [];
                     car.Busy = 0;
+                    car.IdleTime = currentTime;
                     tripTime = currentTime - timesArray(2, car.TimesArrayPosition) - car.PairingTime;
                     timesArray(3, car.TimesArrayPosition) = tripTime;
                 else % Car reached passenger, find path to final dest
