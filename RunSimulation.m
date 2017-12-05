@@ -58,7 +58,11 @@ vec = InitializeVehicles(numCars,positions);
 for t=1:endTime
     subplot(1,2,1)
     DisplayGraph(G, vec, tripQueue)
-    title(sprintf('Number of cars: %d, time: %02d:%02d', numCars, floor(t/60), mod(t,60)))
+    set(gca,'ytick',[])
+    set(gca,'yticklabel',[])
+    set(gca,'xtick',[])
+    set(gca,'xticklabel',[])
+    title({sprintf('Number of cars: %d', numCars); sprintf('Time: %02d:%02d', floor(t/60), mod(t,60))},'FontSize', 18)
 
     
     pause(0.0001)
@@ -91,7 +95,7 @@ for t=1:endTime
     scatter(t, counter_busy(t),'s')
      hold on
     
-    title('Number of busy cars')
+    title('Number of busy cars', 'FontSize', 18)
     
     
 end
