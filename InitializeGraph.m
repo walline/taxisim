@@ -17,6 +17,8 @@ t = {'Brunnsparken' 'Gamlestadstorget' 'Avenyn' 'Järntorget' 'Järntorget' ...
     'Järntorget' 'Stampen' 'Stampen' 'Gamlestadstorget' 'Partille' ...
     'Wavrinskys plats' 'Wavrinskys plats' 'Marklandsgatan' 'Frölunda' 'Majorna' 'Bergsjön' 'Partille'}; % To
 times = [9 14 5 10 7 3 13 1 10 10 6 7 2 4 5 9 5 4 7 12 2 2 10 10 11 8 9]'; % Weights/Times
+x = [722 707 701 699 700 729 697 750 798 756 707 682 695 709 712 736 733 690 689 674 649];
+y = [953 969 978 947 952 1000 986 981 1050 1073 1001 974 926 985 991 1120 1028 973 968 934 928];
 capacity = [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]'; % Not implemented
 currentLoad = [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]'; % Not implemented
 EdgeTable = table([s' t'],capacity,times, currentLoad, ...
@@ -47,6 +49,7 @@ startDest = {'Redbergsplatsen' 'Redbergsplatsen' 'Redbergsplatsen' 'Biskopsgård
 endDest = {'Svingeln' 'Gamlestadstorget' 'Brunnsparken' 'Backaplan' 'Korsvägen' 'Frölunda' 'Guldheden' ...
     'Linnéplatsen' 'Avenyn' 'Angered'};
 travelTimes = [4 8 13 7 11 10 8 4 8 13];
+x2 = [716 724 691 655];
+y2 = [1004 890 952 1012];
 newGraph = addedge(newGraph,startDest,endDest,travelTimes);
 end
-
