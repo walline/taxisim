@@ -14,14 +14,15 @@ totalNumberOfTrips = 10;
 functionCalls = 100; % change this depending on nr of loop iterations
 
 load('fitdata.mat') % loads data for curve fits
-
+load('typedata.mat') % loads data for trip types
 
 %Creating graph
 G = InitializeGraph();
 
 probGen = ProbabilityGenerator();
 probGen.SetTimeProbabilities(x,y,totalNumberOfTrips,functionCalls,startTime,endTime);
-probGen.SetTypeProbabilities(G);
+probGen.SetTypeProbabilities(G,homeDest,homeOrigin,workDest,workOrigin,xType);
+
 
 selection_para = 0;
 %Selection parameter [0, 1] to decide how to assign trips;
