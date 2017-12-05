@@ -58,7 +58,8 @@ vec = InitializeVehicles(numCars,positions);
 for t=1:endTime
     subplot(1,2,1)
     DisplayGraph(G, vec, tripQueue)
-    
+    title(sprintf('Number of cars: %d, time: %02d:%02d', numCars, floor(t/60), mod(t,60)))
+
     
     pause(0.0001)
     %Update generate and add trip
