@@ -19,7 +19,9 @@ load('fitdata.mat') % loads data for curve fits
 load('typedata.mat') % loads data for trip types
 
 %Creating graph
-G = InitializeGraph();
+[G, X, Y] = InitializeGraph();
+[G, X, Y] = AddEmptyNodes(G, 2, X, Y);
+h = InitializePlot(G, X, Y);
 
 % set last input true if you want to generate plots
 probGen = ProbabilityGenerator();
@@ -39,8 +41,6 @@ timesArray =  []; %row 1 pairing time row 2 trip length
 %Initializing TripQueue
 tripQueue = TripQueue(delayTime);
 
-%Creating graph
-G = InitializeGraph();
 
 %Retrieving positions of the most connected nodes
 D = degree(G);
@@ -60,7 +60,7 @@ vec = InitializeVehicles(numCars,positions);
 
 for t=1:endTime
     subplot(1,2,1)
-    DisplayGraph(G, vec, tripQueue)
+    DisplayGraphXY(h, vec, tripQueue)
     set(gca,'ytick',[])
     set(gca,'yticklabel',[])
     set(gca,'xtick',[])
