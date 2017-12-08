@@ -58,7 +58,26 @@ classdef ProbabilityGenerator < handle
             [obj.fitHomeOrigin,~] = fit(X2,Y2,ft);
             [obj.fitWorkDestination,~] = fit(X3,Y3,ft);
             [obj.fitWorkOrigin,~] = fit(X4,Y4,ft);
+
+            """
+            # PLOTTING
+            subplot(1,2,1)
+            x = linspace(0,1440);
+            restDest = 1-obj.fitHomeDestination(x)-obj.fitWorkDestination(x);
+            A = horzcat(obj.fitHomeDestination(x),obj.fitWorkDestination(x),restDest);
+            area(x,A)
+            xticks(0:60:1440)
             
+            legend('Home','Work','Entertainment')
+            title('Destination probabilities')
+            
+            subplot(1,2,2)
+            restOrigin = 1-obj.fitHomeOrigin(x)-obj.fitWorkOrigin(x);
+            B = horzcat(obj.fitHomeOrigin(x),obj.fitWorkOrigin(x),restOrigin);
+            area(x,B)
+            legend('Home','Work','Entertainment')
+            title('Origin probabilities')
+            """
             
         end
         
