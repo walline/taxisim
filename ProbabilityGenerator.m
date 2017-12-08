@@ -44,12 +44,12 @@ classdef ProbabilityGenerator < handle
             
             if makePlot
                 % PLOTTING
-                x = linspace(0,1440)            
+                x = linspace(0,1440);            
                 plot(x,obj.fitResult(x))
-                ticks = 0:3*60:1440
-                xticks(ticks)
-                labels = mod(ticks/60+3,24)
-                labels = strtrim(cellstr(num2str(labels'))')
+                ticks = 0:3*60:1440;
+                xticks(ticks);
+                labels = mod(ticks/60+3,24);
+                labels = strtrim(cellstr(num2str(labels'))');
                 xticklabels(labels)
                 xlabel('Hour')
                 ylabel('Scaled frequency')
@@ -81,12 +81,12 @@ classdef ProbabilityGenerator < handle
                 x = linspace(0,1440);
                 restDest = 1-obj.fitHomeDestination(x)-obj.fitWorkDestination(x);
                 A = horzcat(obj.fitHomeDestination(x),obj.fitWorkDestination(x),restDest);
-                area(x,A)
+                area(x,A)                
                 ticks = 0:60*3:1440;
-                xticks(ticks)
-                labels = mod(ticks/60+3,24)
-                labels = strtrim(cellstr(num2str(labels'))')
-                xticklabels(labels)
+                xticks(ticks);
+                labels = mod(ticks/60+3,24);
+                labels = strtrim(cellstr(num2str(labels'))');
+                xticklabels(labels);
                 xlabel('Hour')
                 ylabel('Probability')
                 
@@ -97,10 +97,10 @@ classdef ProbabilityGenerator < handle
                 restOrigin = 1-obj.fitHomeOrigin(x)-obj.fitWorkOrigin(x);
                 B = horzcat(obj.fitHomeOrigin(x),obj.fitWorkOrigin(x),restOrigin);
                 area(x,B)
-                legend('Home','Work','Entertainment')
-                title('Origin probabilities')
-                xticks(ticks)
-                xticklabels(labels)
+                legend('Home','Work','Entertainment');
+                title('Origin probabilities');
+                xticks(ticks);
+                xticklabels(labels);
                 xlabel('Hour')
                 ylabel('Probability')
             end
