@@ -21,9 +21,10 @@ load('typedata.mat') % loads data for trip types
 %Creating graph
 G = InitializeGraph();
 
+% set last input true if you want to generate plots
 probGen = ProbabilityGenerator();
-probGen.SetTimeProbabilities(x,y,totalNumberOfTrips,functionCalls,startTime,endTime);
-probGen.SetTypeProbabilities(G,homeDest,homeOrigin,workDest,workOrigin,xType);
+probGen.SetTimeProbabilities(x,y,totalNumberOfTrips,functionCalls,startTime,endTime,false);
+probGen.SetTypeProbabilities(G,homeDest,homeOrigin,workDest,workOrigin,xType,false);
 
 
 selection_para = 0;

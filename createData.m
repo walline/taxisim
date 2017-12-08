@@ -17,7 +17,7 @@ workDest = [1,7,7,8,8,5,1,1,1,1,1,1,1]*0.1;
 %plot(time,homeDest+workDest)
 %plot(time,ones(1,length(time)))
 
-homeOrigin = [3,8,8,8,6,1,1,1,4,4,4,4,4]*0.1;
+homeOrigin = [3,8,8,8,6,1,1,1,4,4,4,4,3]*0.1;
 workOrigin = [3,1,1,1,2,8,8,8,3,3,3,3,3]*0.1;
 
 xType = time*60-3*60;

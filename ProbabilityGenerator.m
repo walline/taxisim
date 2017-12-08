@@ -24,9 +24,9 @@ classdef ProbabilityGenerator < handle
             obj.homeNodes=0;
         end
         
-        function SetTimeProbabilities(obj,xdata,ydata,totalNumberOfTrips,functionCalls,startTime,endTime)
-            xdata = xdata*endTime;
-            
+        function SetTimeProbabilities(obj,xdata,ydata,totalNumberOfTrips,functionCalls,startTime, ...
+                                      endTime,makePlot)
+                       
             [X,Y] = prepareCurveData(xdata,ydata);
             ft = fittype('smoothingspline');
             [obj.fitResult,~] = fit(X,Y,ft);
@@ -41,9 +41,24 @@ classdef ProbabilityGenerator < handle
             if maxProbability > 1
                 error('ERROR: Probability greater than one. Needs more function calls or lower total number of trips.')
             end
+            
+            if makePlot
+                % PLOTTING
+                x = linspace(0,1440)            
+                plot(x,obj.fitResult(x))
+                ticks = 0:3*60:1440
+                xticks(ticks)
+                labels = mod(ticks/60+3,24)
+                labels = strtrim(cellstr(num2str(labels'))')
+                xticklabels(labels)
+                xlabel('Hour')
+                ylabel('Scaled frequency')
+                title('Trip density during day')
+            end
+            
         end
         
-        function SetTypeProbabilities(obj,graph,homeDestData,homeOriData,workDestData,workOriData,xData)
+        function SetTypeProbabilities(obj,graph,homeDestData,homeOriData,workDestData,workOriData,xData,makePlot)
             obj.workNodes = find(graph.Nodes.Type==1);
             obj.homeNodes = find(graph.Nodes.Type==3);
             obj.otherNodes = find(graph.Nodes.Type==2);           
@@ -59,25 +74,38 @@ classdef ProbabilityGenerator < handle
             [obj.fitWorkDestination,~] = fit(X3,Y3,ft);
             [obj.fitWorkOrigin,~] = fit(X4,Y4,ft);
 
-            """
-            # PLOTTING
-            subplot(1,2,1)
-            x = linspace(0,1440);
-            restDest = 1-obj.fitHomeDestination(x)-obj.fitWorkDestination(x);
-            A = horzcat(obj.fitHomeDestination(x),obj.fitWorkDestination(x),restDest);
-            area(x,A)
-            xticks(0:60:1440)
             
-            legend('Home','Work','Entertainment')
-            title('Destination probabilities')
+            if makePlot
+                % PLOTTING
+                subplot(1,2,1)
+                x = linspace(0,1440);
+                restDest = 1-obj.fitHomeDestination(x)-obj.fitWorkDestination(x);
+                A = horzcat(obj.fitHomeDestination(x),obj.fitWorkDestination(x),restDest);
+                area(x,A)
+                ticks = 0:60*3:1440;
+                xticks(ticks)
+                labels = mod(ticks/60+3,24)
+                labels = strtrim(cellstr(num2str(labels'))')
+                xticklabels(labels)
+                xlabel('Hour')
+                ylabel('Probability')
+                
+                legend('Home','Work','Entertainment')
+                title('Destination probabilities')
+                
+                subplot(1,2,2)
+                restOrigin = 1-obj.fitHomeOrigin(x)-obj.fitWorkOrigin(x);
+                B = horzcat(obj.fitHomeOrigin(x),obj.fitWorkOrigin(x),restOrigin);
+                area(x,B)
+                legend('Home','Work','Entertainment')
+                title('Origin probabilities')
+                xticks(ticks)
+                xticklabels(labels)
+                xlabel('Hour')
+                ylabel('Probability')
+            end
+
             
-            subplot(1,2,2)
-            restOrigin = 1-obj.fitHomeOrigin(x)-obj.fitWorkOrigin(x);
-            B = horzcat(obj.fitHomeOrigin(x),obj.fitWorkOrigin(x),restOrigin);
-            area(x,B)
-            legend('Home','Work','Entertainment')
-            title('Origin probabilities')
-            """
             
         end
         
