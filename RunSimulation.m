@@ -10,7 +10,7 @@ delayTime = 15;
 startTime = 0;
 counter_busy = zeros(1,endTime);
 
-totalNumberOfTrips = 200;
+totalNumberOfTrips = 20;
 functionCalls = 1440; % change this depending on nr of loop iterations
 
 numberOfPeople = totalNumberOfTrips/3.5; % very rough approximation

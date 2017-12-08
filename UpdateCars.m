@@ -27,6 +27,7 @@ for i=1:numberOfCars
                     car.LastNodeTime = [];
                     car.Busy = 0;
                     tripTime = currentTime - timesArray(2, car.TimesArrayPosition) - car.PairingTime;
+                    car.PairingTime = 0;
                     timesArray(3, car.TimesArrayPosition) = tripTime;
                 else % Car reached passenger, find path to final dest
                     [path, ~] = shortestpath(G, car.CurrentNode, car.FinalDest);
@@ -37,12 +38,23 @@ for i=1:numberOfCars
             end  
         end
     elseif car.CurrentNode ~= car.FinalDest % Car on its way to hub
-        weight = G.Edges.Weight(findedge(G, car.CurrentNode, car.FinalDest));
+        if G.Nodes.Type(findnode(G, car.CurrentNode)) ~= 0 && car.FinalDest ~= car.CurrentNode && currentTime-car.LastNodeTime == 0
+            [path, ~] = shortestpath(G, car.CurrentNode, car.FinalDest);
+            car.Path = path;
+            car.LastNodeTime = currentTime;
+        end
+        
+        weight = G.Edges.Weight(findedge(G, car.CurrentNode, car.Path(find(car.CurrentNode)+1)));
         elapsedTime = currentTime - car.LastNodeTime; 
         if (weight - elapsedTime) <= 0
-            car.CurrentNode = car.FinalDest;
-            car.FinalDest = [];
-            car.LastNodeTime = [];
+            car.CurrentNode = car.Path(2);
+            car.Path = car.Path(2:end);
+            car.LastNodeTime = currentTime;
+            if length(car.Path) == 1 % Car reached hub
+                car.FinalDest = [];
+                car.Path = [];
+                car.LastNodeTime = [];
+            end  
         end
     end
     cars(i) = car;
