@@ -13,6 +13,8 @@ counter_busy = zeros(1,endTime);
 totalNumberOfTrips = 10;
 functionCalls = 100; % change this depending on nr of loop iterations
 
+numberOfPeople = totalNumberOfTrips/3.5; % very rough approximation
+
 load('fitdata.mat') % loads data for curve fits
 load('typedata.mat') % loads data for trip types
 
