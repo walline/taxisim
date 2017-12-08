@@ -1,7 +1,7 @@
 %Initialization
 
 
-clc, clf, clear
+clc, clf, clear all, close all
 %Parameters
 numCars = 6;
 numHubs = 5;
@@ -10,8 +10,8 @@ delayTime = 15;
 startTime = 0;
 counter_busy = zeros(1,endTime);
 
-totalNumberOfTrips = 10;
-functionCalls = 100; % change this depending on nr of loop iterations
+totalNumberOfTrips = 200;
+functionCalls = 1440; % change this depending on nr of loop iterations
 
 numberOfPeople = totalNumberOfTrips/3.5; % very rough approximation
 
@@ -20,6 +20,7 @@ load('typedata.mat') % loads data for trip types
 
 %Creating graph
 [G, X, Y] = InitializeGraph();
+G_old = G;
 [G, X, Y] = AddEmptyNodes(G, 2, X, Y);
 h = InitializePlot(G, X, Y);
 
@@ -44,10 +45,9 @@ tripQueue = TripQueue(delayTime);
 
 %Retrieving positions of the most connected nodes
 D = degree(G);
-% [B,positions] = maxk(D,numHubs);
 positions = zeros(1, numHubs);
 for i=1:numHubs
-    [Y,I] = max(D);
+    [~,I] = max(D);
     D(I) = 0;
     positions(i) = I;
 end
@@ -59,7 +59,8 @@ vec = InitializeVehicles(numCars,positions);
 %Main loop
 
 for t=1:endTime
-    subplot(1,2,1)
+%     subplot(1,2,1)
+    h = InitializePlot(G, X, Y);
     DisplayGraphXY(h, vec, tripQueue)
     set(gca,'ytick',[])
     set(gca,'yticklabel',[])
@@ -80,6 +81,9 @@ for t=1:endTime
     %Pair cars with trip
     [vec, tripQueue, timesArray] = MatchTrips(vec,tripQueue,G,t,timesArray, selection_para);
     
+    vec = IdleCar(vec, G_old, 4, t);
+    
+    
     %Uppdate cars
     [vec,  timesArray] = UpdateCars(G,vec,t,timesArray);
     timesArray
@@ -93,12 +97,12 @@ for t=1:endTime
     end
     
     
-    subplot(1,2,2)
-    axis([0 endTime 0 numCars])
-    scatter(t, counter_busy(t),'s')
-     hold on
-    
-    title('Number of busy cars', 'FontSize', 18)
+%     subplot(1,2,2)
+%     axis([0 endTime 0 numCars])
+%     scatter(t, counter_busy(t),'s')
+%      hold on
+%     
+%     title('Number of busy cars', 'FontSize', 18)
     
     
 end

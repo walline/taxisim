@@ -63,5 +63,5 @@ X=[x, x2];
 Y=[y, y2];
 
 newGraph = addedge(newGraph,startDest,endDest,travelTimes);
-plot(newGraph, 'XData',X,'YData',Y)
+% plot(newGraph, 'XData',X,'YData',Y)
 end

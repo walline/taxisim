@@ -1,4 +1,4 @@
-function [updatedCars, timesArray] = UpdateCars( graph, cars, currentTime, timesArray )
+function [updatedCars, timesArray] = UpdateCars( G, cars, currentTime, timesArray )
 %UPDATECARS
 
 numberOfCars = length(cars);
@@ -6,17 +6,17 @@ for i=1:numberOfCars
     car = cars(i);
     if car.Busy
         if length(car.Path) == 1 % If driver starts at pickup node
-            [path, ~] = shortestpath(graph, car.CurrentNode, car.FinalDest);
+            [path, ~] = shortestpath(G, car.CurrentNode, car.FinalDest);
             car.Path = path;
             timesArray(2, car.TimesArrayPosition) = 0;
         end
-        weight = graph.Edges.Weight(findedge(graph, car.CurrentNode, car.Path(find(car.CurrentNode)+1)));
+        weight = G.Edges.Weight(findedge(G, car.CurrentNode, car.Path(find(car.CurrentNode)+1)));
         if isempty(car.LastNodeTime)
             elapsedTime = currentTime - car.PairingTime;
         else
             elapsedTime = currentTime - car.LastNodeTime;
         end
-        if (weight - elapsedTime) == 0
+        if (weight - elapsedTime) <= 0
             car.CurrentNode = car.Path(2);
             car.Path = car.Path(2:end);
             car.LastNodeTime = currentTime;
@@ -29,7 +29,7 @@ for i=1:numberOfCars
                     tripTime = currentTime - timesArray(2, car.TimesArrayPosition) - car.PairingTime;
                     timesArray(3, car.TimesArrayPosition) = tripTime;
                 else % Car reached passenger, find path to final dest
-                    [path, ~] = shortestpath(graph, car.CurrentNode, car.FinalDest);
+                    [path, ~] = shortestpath(G, car.CurrentNode, car.FinalDest);
                     car.Path = path;
                     pickupTime = currentTime - car.PairingTime;
                     timesArray(2, car.TimesArrayPosition) = pickupTime;
@@ -37,9 +37,9 @@ for i=1:numberOfCars
             end  
         end
     elseif car.CurrentNode ~= car.FinalDest % Car on its way to hub
-        weight = graph.Edges.Weight(findedge(graph, car.CurrentNode, car.FinalDest));
+        weight = G.Edges.Weight(findedge(G, car.CurrentNode, car.FinalDest));
         elapsedTime = currentTime - car.LastNodeTime; 
-        if (weight - elapsedTime) == 0
+        if (weight - elapsedTime) <= 0
             car.CurrentNode = car.FinalDest;
             car.FinalDest = [];
             car.LastNodeTime = [];
