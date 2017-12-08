@@ -38,7 +38,7 @@ highlight(h,busy(i,:),'EdgeColor','r', 'LineWidth', 3); %busy moving
 end
 
 for i = 1:size(idleMoving, 1)
-highlight(h,idleMoving(:,1),'EdgeColor','y', 'LineWidth', 3); %idle moving
+highlight(h,idleMoving(i,:),'EdgeColor','m', 'LineWidth', 3); %idle moving
 end
 
 end
