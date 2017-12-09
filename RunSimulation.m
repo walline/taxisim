@@ -3,14 +3,14 @@
 
 clc, clf, clear all, close all
 %Parameters
-numCars = 6;
+numCars = 5;
 numHubs = 5;
 endTime = 1440; %1440 for 24 hours
 delayTime = 15;
 startTime = 0;
 counter_busy = zeros(1,endTime);
 
-totalNumberOfTrips = 20;
+totalNumberOfTrips = 100;
 functionCalls = 1440; % change this depending on nr of loop iterations
 
 numberOfPeople = totalNumberOfTrips/3.5; % very rough approximation
@@ -66,7 +66,7 @@ for t=1:endTime
     set(gca,'yticklabel',[])
     set(gca,'xtick',[])
     set(gca,'xticklabel',[])
-    title({sprintf('Number of cars: %d', numCars); sprintf('Time: %02d:%02d', floor(t/60), mod(t,60))},'FontSize', 18)
+    title({sprintf('Number of cars: %d', numCars); sprintf('Time: %02d:%02d', mod(3+floor(t/60),24), mod(t,60))},'FontSize', 18)
 
     
     pause(0.0001)
