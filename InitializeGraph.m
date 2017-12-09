@@ -32,15 +32,6 @@ h = plot(newGraph, 'NodeLabel', newGraph.Nodes.Name,'EdgeLabel',newGraph.Edges.W
 highlight(h, find(newGraph.Nodes.Type == 1), 'MarkerSize', 8) 
 highlight(h, find(newGraph.Nodes.Type == 2), 'MarkerSize', 6)
 
-% How to find shortest path:
-[path, d] = shortestpath(newGraph, 'Backaplan', 'Brunnsparken'); %Dijkstras
-
-% Retrieve adjacency matrix (if we need it):
-nn = numnodes(newGraph);
-[s,t] = findedge(newGraph);
-A = sparse(s,t,newGraph.Edges.Weight,nn,nn);
-full(A);
-
 %Adding new nodes 
 NodeProps = table({'Redbergsplatsen' 'Biskopsgarden' 'Linneplatsen' 'Molndal' 'Tuve' 'Eklanda' 'Kalltorp'}',...
     [1 3 1 3 3 3 3]', 'VariableNames', {'Name' 'Type'});
@@ -59,9 +50,14 @@ travelTimes = [4 8 7 11 8 4 8 13 11 10 14 8 7 11 8 11 12 14 7 8 8 11 7 8 4];
 x2 = [716 724 691 655 755 650 716];
 y2 = [1004 890 952 1012 934 965 1033];
 
-X=[x, x2];
-Y=[y, y2];
+Y=[x, x2];
+X=[y, y2];
 
 newGraph = addedge(newGraph,startDest,endDest,travelTimes);
-% plot(newGraph, 'XData',X,'YData',Y)
+
+% % Retrieve adjacency matrix (if we need it):
+% nn = numnodes(newGraph);
+% [s,t] = findedge(newGraph);
+% A = sparse(s,t,newGraph.Edges.Weight,nn,nn);
+% full(A);
 end

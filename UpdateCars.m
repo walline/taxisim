@@ -37,8 +37,9 @@ for i=1:numberOfCars
                 end
             end  
         end
-    elseif car.CurrentNode ~= car.FinalDest % Car on its way to hub
-        if G.Nodes.Type(findnode(G, car.CurrentNode)) ~= 0 && car.FinalDest ~= car.CurrentNode && currentTime-car.LastNodeTime == 0
+    elseif car.CurrentNode ~= car.FinalDest % Car not busy and moving
+        if G.Nodes.Type(findnode(G, car.CurrentNode)) ~= 0 && car.FinalDest...
+                ~= car.CurrentNode && currentTime-car.LastNodeTime == 0 % If was just assigned a hub
             [path, ~] = shortestpath(G, car.CurrentNode, car.FinalDest);
             car.Path = path;
             car.LastNodeTime = currentTime;
