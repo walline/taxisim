@@ -3,6 +3,7 @@ function DisplayGraphXY(h, cars, trips)
 calls = [];
 busy = [];
 idle = [];
+tripsWaiting = [];
 idleMoving = [];
 
 numberOfVehicles = length(cars);
@@ -20,6 +21,9 @@ for i=1:numberOfVehicles
             idleMoving = [idleMoving; [car.CurrentNode, car.Path(find(car.CurrentNode)+1)]]; % Car moving to hub
         end
     else
+        if(car.FinalDest ~= car.Path(length(car.Path)))
+            tripsWaiting = [tripsWaiting, car.Path(length(car.Path))];
+        end
         busy = [busy; [car.CurrentNode, car.Path(find(car.CurrentNode)+1)]];
     end
 end
@@ -30,15 +34,16 @@ end
 
 %display
 
-highlight(h,calls,'NodeColor', [1, 101/255, 0], 'MarkerSize', 7); %calls
-highlight(h,idle,'NodeColor',[101/255, 0, 1], 'MarkerSize', 7); %idle cars
+highlight(h,calls,'NodeColor', [1, 80/255, 0], 'MarkerSize', 6); %calls
+highlight(h,tripsWaiting,'NodeColor', [1, 200/255, 0], 'MarkerSize', 6);
+highlight(h,idle,'NodeColor','m', 'MarkerSize', 6); %idle cars
 
 for i = 1:size(busy, 1)
-highlight(h,busy(i,:),'EdgeColor','r', 'LineWidth', 3); %busy moving
+highlight(h,busy(i,:),'EdgeColor',[130/255, 50/255, 1], 'LineWidth', 4); %busy moving
 end
 
 for i = 1:size(idleMoving, 1)
-highlight(h,idleMoving(i,:),'EdgeColor','m', 'LineWidth', 3); %idle moving
+highlight(h,idleMoving(i,:),'EdgeColor','m', 'LineWidth', 4); %idle moving
 end
 
 end
