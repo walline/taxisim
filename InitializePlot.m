@@ -12,7 +12,12 @@ for i = 1:nNodes
 end
  
 h = plot(graph, 'NodeLabel', hiddenNames, 'XData',X,'YData',Y);
+
 highlight(h, empty, 'MarkerSize', 1, 'Marker', 'none'); %hide dividing nodes
+
+xlim([800 1200])
+ylim([600 850])
+
 
 hold on
 l = zeros(5,1);
