@@ -60,13 +60,23 @@ vec = InitializeVehicles(numCars,positions);
 
 for t=1:endTime
 %     subplot(1,2,1)
+
+      numBusy = 0;
+        for i=1:numCars
+            if vec(i).Busy==1
+                %             counter_busy(t) = counter_busy(t) + 1;
+                numBusy = numBusy + 1;
+            end
+        end
+        
+        
     h = InitializePlot(G, X, Y);
     DisplayGraphXY(h, vec, tripQueue)
     set(gca,'ytick',[])
     set(gca,'yticklabel',[])
     set(gca,'xtick',[])
     set(gca,'xticklabel',[])
-    title({sprintf('Number of cars: %d', numCars); sprintf('Time: %02d:%02d', mod(3+floor(t/60),24), mod(t,60))},'FontSize', 18)
+    title({sprintf('Number of cars: %d', numCars);sprintf('Number of busy cars: %d', numBusy); sprintf('Time: %02d:%02d', mod(3+floor(t/60),24), mod(t,60))},'FontSize', 18)
 
     
     pause(0.0001)
