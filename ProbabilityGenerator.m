@@ -119,9 +119,9 @@ classdef ProbabilityGenerator < handle
            if r < obj.fitHomeOrigin(time)
                origin = datasample(obj.homeNodes,1);
            elseif r < obj.fitHomeOrigin(time)+obj.fitWorkOrigin(time)
-               origin = datasample(obj.workNodes,1)
+               origin = datasample(obj.workNodes,1);
            else
-               origin = datasample(obj.otherNodes,1)
+               origin = datasample(obj.otherNodes,1);
            end
            
            r = rand;
