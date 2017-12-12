@@ -77,7 +77,7 @@ classdef ProbabilityGenerator < handle
             
             if makePlot
                 % PLOTTING
-                subplot(1,2,1)
+                subplot(1,2,2)
                 x = linspace(0,1440);
                 restDest = 1-obj.fitHomeDestination(x)-obj.fitWorkDestination(x);
                 A = horzcat(obj.fitHomeDestination(x),obj.fitWorkDestination(x),restDest);
@@ -93,7 +93,7 @@ classdef ProbabilityGenerator < handle
                 legend('Home','Work','Entertainment')
                 title('Destination probabilities')
                 
-                subplot(1,2,2)
+                subplot(1,2,1)
                 restOrigin = 1-obj.fitHomeOrigin(x)-obj.fitWorkOrigin(x);
                 B = horzcat(obj.fitHomeOrigin(x),obj.fitWorkOrigin(x),restOrigin);
                 area(x,B)
