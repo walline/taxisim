@@ -3,14 +3,14 @@
 
 clc, clf, clear all, close all
 %Parameters
-numCars = 5;
+numCars = 10;
 numHubs = 5;
 endTime = 1440; %1440 for 24 hours
 delayTime = 15;
 startTime = 0;
 counter_busy = zeros(1,endTime);
 
-totalNumberOfTrips = 100;
+totalNumberOfTrips = 400;
 functionCalls = 1440; % change this depending on nr of loop iterations
 
 numberOfPeople = totalNumberOfTrips/3.5; % very rough approximation
@@ -57,26 +57,36 @@ positions = num2cell(positions);
 vec = InitializeVehicles(numCars,positions);
 
 %Main loop
+vid = VideoWriter('simsim.avi','Motion JPEG AVI');
+vid.FrameRate = 24;
+vid.Quality=75;
+open(vid); 
 
 for t=1:endTime
-
-    numBusy = 0;
-    for i=1:numCars
-        if vec(i).Busy==1
-            numBusy = numBusy + 1;
-        end
-    end
-       
+%     subplot(1,2,1)
     h = InitializePlot(G, X, Y);
     DisplayGraphXY(h, vec, tripQueue)
     set(gca,'ytick',[])
     set(gca,'yticklabel',[])
     set(gca,'xtick',[])
     set(gca,'xticklabel',[])
-    title({sprintf('Number of cars: %d', numCars);sprintf('Number of busy cars: %d', numBusy); sprintf('Time: %02d:%02d', mod(3+floor(t/60),24), mod(t,60))},'FontSize', 18)
-
     
+    numBusy = 0;
+    for i=1:numCars
+        if vec(i).Busy==1
+            numBusy = numBusy + 1;
+        end
+    end
+   
+    %title({sprintf('Number of cars: %d', numCars); sprintf('Time: %02d:%02d', mod(3+floor(t/60),24), mod(t,60))},'FontSize', 18)
+    dim = [.2 .65 .1 .2];
+    str = {sprintf('Busy cars: %d/%d', numBusy, numCars); sprintf('Time: %02d:%02d', mod(3+floor(t/60),24), mod(t,60)); sprintf('Number of people: %d', round(numberOfPeople))};
+    a = annotation('textbox',dim,'String',str,'FontSize', 16, 'FitBoxToText','on');
+    %zoom(1.2)
+    set(gcf, 'outerposition', [0, 0, 1200, 850])
     pause(0.0001)
+    frame = getframe(gcf); %get image of whats displayed in the figure
+    writeVideo(vid, frame);
     %Update generate and add trip
     [origin,destination] = probGen.GenerateTrip(t);
     
@@ -96,8 +106,18 @@ for t=1:endTime
     timesArray
     t
     
+    for i=1:numCars
+        if vec(i).Busy==1
+            counter_busy(t) = counter_busy(t) + 1;
+        end
+    end
+    
+%     subplot(1,2,2)
+%     axis([0 endTime 0 numCars])
+%     scatter(t, counter_busy(t),'s')
+%      hold on
+%     
+%     title('Number of busy cars', 'FontSize', 18)
+    delete(a);
 end
-
-timeNotPaired = sum(t - tripQueue.tripMatrix(:, 3));
-cost = CalculateCost(timesArray, numCars, timeNotPaired)
-
+close(vid);

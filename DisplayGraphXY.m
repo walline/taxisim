@@ -36,14 +36,14 @@ end
 
 highlight(h,calls,'NodeColor', [1, 80/255, 0], 'MarkerSize', 6); %calls
 highlight(h,tripsWaiting,'NodeColor', [1, 200/255, 0], 'MarkerSize', 6);
-highlight(h,idle,'NodeColor','m', 'MarkerSize', 6); %idle cars
+highlight(h,idle,'NodeColor',[0 200/255 1], 'MarkerSize', 6); %idle cars
 
 for i = 1:size(busy, 1)
-highlight(h,busy(i,:),'EdgeColor',[130/255, 50/255, 1], 'LineWidth', 4); %busy moving
+highlight(h,busy(i,:),'EdgeColor','b', 'LineWidth', 4); %busy moving
 end
 
 for i = 1:size(idleMoving, 1)
-highlight(h,idleMoving(i,:),'EdgeColor','m', 'LineWidth', 4); %idle moving
+highlight(h,idleMoving(i,:),'EdgeColor',[0 200/255 1], 'LineWidth', 4); %idle moving
 end
 
 end
