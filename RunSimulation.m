@@ -59,17 +59,14 @@ vec = InitializeVehicles(numCars,positions);
 %Main loop
 
 for t=1:endTime
-%     subplot(1,2,1)
 
-      numBusy = 0;
-        for i=1:numCars
-            if vec(i).Busy==1
-                %             counter_busy(t) = counter_busy(t) + 1;
-                numBusy = numBusy + 1;
-            end
+    numBusy = 0;
+    for i=1:numCars
+        if vec(i).Busy==1
+            numBusy = numBusy + 1;
         end
-        
-        
+    end
+       
     h = InitializePlot(G, X, Y);
     DisplayGraphXY(h, vec, tripQueue)
     set(gca,'ytick',[])
@@ -99,20 +96,8 @@ for t=1:endTime
     timesArray
     t
     
-    
-    for i=1:numCars
-        if vec(i).Busy==1
-            counter_busy(t) = counter_busy(t) + 1;
-        end
-    end
-    
-    
-%     subplot(1,2,2)
-%     axis([0 endTime 0 numCars])
-%     scatter(t, counter_busy(t),'s')
-%      hold on
-%     
-%     title('Number of busy cars', 'FontSize', 18)
-    
-    
 end
+
+timeNotPaired = sum(t - tripQueue.tripMatrix(:, 3));
+cost = CalculateCost(timesArray, numCars, timeNotPaired)
+
