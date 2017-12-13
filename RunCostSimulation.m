@@ -111,8 +111,7 @@ for ppl=1:3
             costs(carNbr) = costs(carNbr) + CalculateCost(timesArray, carNbr, timeNotPaired);
         end
     end
-    disp(costs)
-    costs = costs ./ 10;
+    costs = costs ./ iterations;
     if ppl == 1
         save('costs_20ppl_2iter', 'costs')
     elseif ppl == 2
@@ -125,9 +124,9 @@ end
 %%
 
 numCars = linspace(1, 50, 50);
-fifty_ppl = load('costs_50ppl.mat');
-thirty_ppl = load('costs_35ppl.mat');
-twenty_ppl = load('costs_20ppl.mat');
+fifty_ppl = load('costs_50ppl_2iter.mat');
+thirty_ppl = load('costs_35ppl_2iter.mat');
+twenty_ppl = load('costs_20ppl_2iter.mat');
 figure()
 plot(numCars, twenty_ppl.costs, 'r')
 hold on
